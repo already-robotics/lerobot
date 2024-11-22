@@ -1,3 +1,6 @@
+# TODO: Написать свою реализацию этого файла для mybrand (сейчас это просто копипаста feetech_calibration.py)
+
+
 """Logic to calibrate a robot arm built with feetech motors"""
 # TODO(rcadene, aliberts): move this logic into the robot code when refactoring
 
@@ -126,9 +129,6 @@ def apply_offset(calib, offset):
     return calib
 
 
-# TODO: Разобраться, где эта функция используется (не нашёл, где используется).
-# Разобраться, нужно ли тут писать свою версию run_arm_auto_calibration_already_robotics и заменить тут.
-# Кажется, что не нужно, так как есть отдельный файл mybrand_calibration.py).
 def run_arm_auto_calibration(arm: MotorsBus, robot_type: str, arm_name: str, arm_type: str):
     if robot_type == "so100":
         return run_arm_auto_calibration_so100(arm, robot_type, arm_name, arm_type)

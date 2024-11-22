@@ -199,6 +199,7 @@ available_robots = [
     "koch_bimanual",
     "aloha",
     "so100",
+    "already_robotics",
     "moss",
 ]
 
@@ -212,6 +213,7 @@ available_cameras = [
 available_motors = [
     "dynamixel",
     "feetech",
+    "mybrand"
 ]
 
 # keys and values refer to yaml files

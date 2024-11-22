@@ -60,6 +60,11 @@ def test_configure_motors_all_ids_1(request, motor_type, mock):
         # see SCS_SERIES_BAUDRATE_TABLE
         smaller_baudrate = 19_200
         smaller_baudrate_value = 7
+    elif motor_type == "mybrand":
+        # TODO: Поставить нужные значения
+        # see SCS_SERIES_BAUDRATE_TABLE
+        smaller_baudrate = 19_200
+        smaller_baudrate_value = 7
     else:
         raise ValueError(motor_type)
 

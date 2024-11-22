@@ -315,7 +315,7 @@ def make_robot(robot_type: str, overrides: list[str] | None = None, mock=False) 
 
         # Explicitely add mock argument to the cameras and set it to true
         # TODO(rcadene, aliberts): redesign when we drop hydra
-        if robot_type in ["koch", "so100", "moss"]:
+        if robot_type in ["koch", "so100", "already_robotics", "moss"]:
             overrides.append("+leader_arms.main.mock=true")
             overrides.append("+follower_arms.main.mock=true")
             if "~cameras" not in overrides:
@@ -382,6 +382,13 @@ def make_motors_bus(motor_type: str, **kwargs) -> MotorsBus:
         port = kwargs.pop("port", FEETECH_PORT)
         motors = kwargs.pop("motors", FEETECH_MOTORS)
         return FeetechMotorsBus(port, motors, **kwargs)
+
+    elif motor_type == "mybrand":
+        from lerobot.common.robot_devices.motors.mybrand import MybrandMotorsBus
+
+        port = kwargs.pop("port", FEETECH_PORT)
+        motors = kwargs.pop("motors", FEETECH_MOTORS)
+        return MybrandMotorsBus(port, motors, **kwargs)
 
     else:
         raise ValueError(f"The motor type '{motor_type}' is not valid.")
