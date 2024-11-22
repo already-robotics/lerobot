@@ -168,6 +168,10 @@ def test_record_and_replay_and_policy(tmpdir, request, robot_type, mock):
     elif robot_type == "so100":
         env_name = "so100_real"
         policy_name = "act_so100_real"
+    elif robot_type == "already_robotics":
+        # TODO: Подставить корректные названия
+        env_name = "so100_real"
+        policy_name = "act_so100_real"
     elif robot_type == "moss":
         env_name = "moss_real"
         policy_name = "act_moss_real"

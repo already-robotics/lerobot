@@ -81,7 +81,7 @@ class ManipulatorRobotConfig:
         super().__setattr__(prop, val)
 
     def __post_init__(self):
-        if self.robot_type not in ["koch", "koch_bimanual", "aloha", "so100", "moss"]:
+        if self.robot_type not in ["koch", "koch_bimanual", "aloha", "so100", "already_robotics", "moss"]:
             raise ValueError(f"Provided robot type ({self.robot_type}) is not supported.")
 
 
@@ -268,6 +268,8 @@ class ManipulatorRobot:
             from lerobot.common.robot_devices.motors.dynamixel import TorqueMode
         elif self.robot_type in ["so100", "moss"]:
             from lerobot.common.robot_devices.motors.feetech import TorqueMode
+        elif self.robot_type in ["already_robotics"]:
+            from lerobot.common.robot_devices.motors.mybrand import TorqueMode
 
         # We assume that at connection time, arms are in a rest position, and torque can
         # be safely disabled to run calibration and/or set robot preset configurations.
@@ -284,6 +286,9 @@ class ManipulatorRobot:
         elif self.robot_type == "aloha":
             self.set_aloha_robot_preset()
         elif self.robot_type in ["so100", "moss"]:
+            self.set_so100_robot_preset()
+        elif self.robot_type in ["already_robotics"]:
+            # TODO: Написать свою реализацию set_already_robotics_robot_preset и заменить тут
             self.set_so100_robot_preset()
 
         # Enable torque on all motors of the follower arms
@@ -338,6 +343,13 @@ class ManipulatorRobot:
 
                 elif self.robot_type in ["so100", "moss"]:
                     from lerobot.common.robot_devices.robots.feetech_calibration import (
+                        run_arm_manual_calibration,
+                    )
+
+                    calibration = run_arm_manual_calibration(arm, self.robot_type, name, arm_type)
+
+                elif self.robot_type in ["already_robotics"]:
+                    from lerobot.common.robot_devices.robots.mybrand_calibration import (
                         run_arm_manual_calibration,
                     )
 

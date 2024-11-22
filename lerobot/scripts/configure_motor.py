@@ -23,6 +23,12 @@ def configure_motor(port, brand, model, motor_idx_des, baudrate_des):
             SCS_SERIES_BAUDRATE_TABLE as SERIES_BAUDRATE_TABLE,
         )
         from lerobot.common.robot_devices.motors.feetech import FeetechMotorsBus as MotorsBusClass
+    elif brand == "mybrand":
+        from lerobot.common.robot_devices.motors.mybrand import MODEL_BAUDRATE_TABLE
+        from lerobot.common.robot_devices.motors.mybrand import (
+            SCS_SERIES_BAUDRATE_TABLE as SERIES_BAUDRATE_TABLE,
+        )
+        from lerobot.common.robot_devices.motors.mybrand import MybrandMotorsBus as MotorsBusClass
     elif brand == "dynamixel":
         from lerobot.common.robot_devices.motors.dynamixel import MODEL_BAUDRATE_TABLE
         from lerobot.common.robot_devices.motors.dynamixel import (
@@ -82,6 +88,7 @@ def configure_motor(port, brand, model, motor_idx_des, baudrate_des):
 
         print(f"Motor index found at: {motor_index}")
 
+        # TODO: Разобраться, нужно ли тут вообще что-то делать для brand == "mybrand"
         if brand == "feetech":
             # Allows ID and BAUDRATE to be written in memory
             motor_bus.write_with_motor_ids(motor_bus.motor_models, motor_index, "Lock", 0)
@@ -109,6 +116,7 @@ def configure_motor(port, brand, model, motor_idx_des, baudrate_des):
         if present_idx != motor_idx_des:
             raise OSError("Failed to write index.")
 
+        # TODO: Разобраться, нужно ли тут вообще что-то делать для brand == "mybrand"
         if brand == "feetech":
             # Set Maximum_Acceleration to 254 to speedup acceleration and deceleration of
             # the motors. Note: this configuration is not in the official STS3215 Memory Table
